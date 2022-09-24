@@ -3,9 +3,9 @@ import {Box,TextField,Button,styled,Typography} from "@mui/material";
 import { useState } from "react";
 
 const Component = styled(Box)`
-width : 400px;
-margin : auto;
-box-shadow : 5px 2px 5px 2px rgb(0 0 0/0.35);`
+    width : 400px;
+    margin : auto;
+    box-shadow : 5px 2px 5px 2px rgb(0 0 0/0.35);`
 
 const Image = styled("img")({
     width : 100,
@@ -15,20 +15,20 @@ const Image = styled("img")({
 })
 
 const Wrapper = styled(Box)`
-padding : 25px 35px;
-display : flex;
-flex : 1;
-flex-direction : column;
-& > div,& > button ,& > p{
-    margin-top : 20px;
+    padding : 25px 35px;
+    display : flex;
+    flex : 1;
+    flex-direction : column;
+    & > div,& > button ,& > p{
+        margin-top : 20px;
 }`
 
 const LoginButton = styled(Button)`
-text-transform : none;
-background : #FB641B;
-color :#fff;
-height : 48px;
-border-radius : 2px;`
+    text-transform : none;
+    background : #FB641B;
+    color :#fff;
+    height : 48px;
+    border-radius : 2px;`
 
 const SignupButoon = styled(Button)`
     text-transform : none;
@@ -44,15 +44,30 @@ const Text = styled(Typography)`
     color : #878787;
     `
 
+const signUpInitialValues = {
+    name : "",
+    username : "",
+    password : ""
+}
+
+
 const Login = () => {
+
     const imgUrl = "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
+
     const [display,setDisplay] = useState(true);
+    const [signup,setSignup] = useState(signUpInitialValues);
+
     const setComponent = () => {
         if(display === true){
             setDisplay(false)
         }else {
             setDisplay(true)
         }
+    }
+    const onInputChange = (e) => {
+        e.preventDefault();
+        setSignup({...signup,[e.target.name] : e.target.value});
     }
     return(<Component>
         <Image src={imgUrl} alt="Login"></Image>
@@ -63,9 +78,9 @@ const Login = () => {
             <Text >Or</Text>
             <SignupButoon onClick={() => setComponent()}>Create an account</SignupButoon>
         </Wrapper> :  <Wrapper>
-            <TextField variant="standard" label="Name"/>
-            <TextField variant="standard" label="Username"/>
-            <TextField variant="standard" label="Password"/>
+            <TextField variant="standard" onChange={(e) => onInputChange(e)} label="Enter name"/>
+            <TextField variant="standard" onChange={(e) => onInputChange(e)} label="Enter username"/>
+            <TextField variant="standard" onChange={(e) => onInputChange(e)} label="Enter Password"/>
             <SignupButoon >Sign up</SignupButoon>
             <Text >Or</Text>
             <LoginButton variant="contained" onClick={() => setComponent()}>Already have an account</LoginButton>
